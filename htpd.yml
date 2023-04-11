@@ -3,12 +3,12 @@
   become : True
   tasks :
    - name : apache
-     apt : 
-      name: apache2
+     yum : 
+      name: httpd
       state: present
-   - name : servive start
+   - name : service start
      service:
-      name: apache2
+      name: httpd
       state: started
    - name : copy file
      copy:
