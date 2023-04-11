@@ -1,5 +1,5 @@
 [webserver]
-13.49.125.13 ansible_user=ec2-user
+16.16.110.180 ansible_user=ubuntu
 [windows]
 172.31.44.94
 ansible_user=Administrator
