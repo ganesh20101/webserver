@@ -25,6 +25,11 @@
 
     - name: enabled mpm_event
       apache2_module: name=mpm_event state=present
+     
+    - name : copy file
+      copy:
+       src: index.html
+       dest: /var/www/html/
 
 
       notify:
