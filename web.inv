@@ -1,7 +1,8 @@
 [webserver]
 13.53.139.250 ansible_user=ubuntu
 [windows]
-172.31.44.94
+18.61.34.109
+[windows:vars]
 ansible_user=Administrator
 ansible_password=satvat@123
 ansible_port=5986
