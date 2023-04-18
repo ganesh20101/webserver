@@ -1,0 +1,10 @@
+---
+- name: Install IIS
+  hosts: windows
+  gather_facts: true
+  tasks:
+   - name: Install Remote Desktop Connection Manager locally omitting the product_id
+     ansible.windows.win_package:
+       path: C:\CRRedist2008_x86.msi
+       state: present
+
