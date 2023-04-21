@@ -1,0 +1,39 @@
+resource "aws_lb_application" "load_balancer" {
+  name               = "load-balancer"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.load_balancer.id]
+  subnets            = ["subnet-12345678", "subnet-23456789"]
+
+  tags = {
+    Name = "Application Load Balancer"
+  }
+}
+resource "aws_lb_target_group" "target_group" {
+  name_prefix       = "target-group-"
+  port              = 80
+  protocol          = "HTTP"
+  vpc_id            = "vpc-12345678"
+  target_type       = "instance"
+  health_check {
+    protocol = "HTTP"
+    path     = "/"
+  }
+
+  tags = {
+    Name = "Target Group"
+  }
+}
+resource "aws_lb_target_group_attachment" "target_group_attachment_1" {
+  target_group_arn = aws_lb_target_group.target_group.arn
+  target_id        = "i-12345678"
+  port             = 80
+  availability_zone = "us-west-2a"
+}
+
+resource "aws_lb_target_group_attachment" "target_group_attachment_2" {
+  target_group_arn = aws_lb_target_group.target_group.arn
+  target_id        = "i-23456789"
+  port             = 80
+  availability_zone = "us-west-2b"
+}
