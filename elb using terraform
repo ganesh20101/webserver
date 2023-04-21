@@ -28,12 +28,10 @@ resource "aws_lb_target_group_attachment" "target_group_attachment_1" {
   target_group_arn = aws_lb_target_group.target_group.arn
   target_id        = "i-12345678"
   port             = 80
-  availability_zone = "us-west-2a"
 }
 
 resource "aws_lb_target_group_attachment" "target_group_attachment_2" {
   target_group_arn = aws_lb_target_group.target_group.arn
   target_id        = "i-23456789"
   port             = 80
-  availability_zone = "us-west-2b"
 }
