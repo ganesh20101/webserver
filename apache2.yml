@@ -37,4 +37,4 @@
 
   handlers:
     - name: restart apache2
-      service: name=apache2 state=restarte 
+      service: name=apache2 state=restarted
