@@ -1,4 +1,5 @@
-[webserver]3.25.88.201 ansible_user=ubuntu
+[webserver]
+3.25.88.201 ansible_user=ubuntu
 [windows]
 18.61.34.109
 [windows:vars]
