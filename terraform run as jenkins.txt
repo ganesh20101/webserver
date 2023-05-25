@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git') {
+            steps {
+              git branch: 'main', url: 'https://github.com/ganesh20101/terraform.git'
+            }
+        }
+        stage('terraform init') {
+            steps {
+              sh ("terraform init");
+            }
+        }
+        stage('terraform action') {
+            steps {
+              echo "terraform action from the parameter is --> ${action}"
+              sh ("terraform ${action} -auto-approve");
+            }
+        }
+    }
+}
