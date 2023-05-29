@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout source code from the GitHub repository
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+
+        stage('Build and Run Docker') {
+            steps {
+                // Build the Docker image using the Dockerfile in the repository
+                sh 'docker build -t my-docker-image .'
+
+                // Run the Docker container from the built image
+                sh 'docker run -d -p 8080:8080 --name my-container my-docker-image'
+            }
+        }
+    }
+}
