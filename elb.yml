@@ -1,0 +1,36 @@
+---
+- name: Create ELB and Map Instances
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create Load Balancer
+      ec2_elb_lb:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        name: MyLoadBalancer
+        state: present
+        listeners:
+          - protocol: HTTP
+            load_balancer_port: 80
+            instance_port: 80
+        availability_zones:
+          - us-east-1a
+          - us-east-1b
+        subnets:
+          - subnet-12345678
+          - subnet-23456789
+        security_groups:
+          - sg-12345678
+        tags:
+          - key: Name
+            value: MyELB
+      register: elb_result
+
+    - name: Map Instances to ELB
+      ec2_elb_instance:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        ec2_elbs: "{{ elb_result.load_balancer.name }}"
+        instance_ids:
+          - i-12345678
+          - i-23456789
