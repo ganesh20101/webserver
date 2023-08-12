@@ -1,0 +1,31 @@
+---
+- name: Create Auto Scaling Group
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create Launch Configuration
+      ec2_lc:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        name: MyLaunchConfig
+        image_id: ami-12345678
+        instance_type: t2.micro
+        security_groups: my-security-group
+        key_name: my-key-pair
+        instance_monitoring: yes
+      register: lc
+
+    - name: Create Auto Scaling Group
+      ec2_asg:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        name: MyAutoScalingGroup
+        launch_config_name: "{{ lc.name }}"
+        min_size: 2
+        max_size: 5
+        desired_capacity: 3
+        vpc_zone_identifier: subnet-12345678
+        tags:
+          - key: Name
+            value: MyASG
+            propagate_at_launch: true
