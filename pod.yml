@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-podss1
+spec:
+  selector:
+    matchLabels:
+      app: nginx-podsss
+  template:
+    metadata:
+      labels:
+        app: nginx-podsss
+    spec:
+      containers:
+        - name: nginx-containerss1
+          image: nginx
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-servicesss
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: nginx-podsss
