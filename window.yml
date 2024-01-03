@@ -10,8 +10,9 @@
 
 
     - name: Run the Linux command
-      win_shell:
-        cmd: msiexec /quiet /i "C:\Firefox Setup 14.0.1.msi" WRAPPED_ARGUMENTS="/S"
+      ansible.windows.win_powershell:
+        script: |
+          msiexec /quiet /i "C:\Firefox Setup 14.0.1.msi" WRAPPED_ARGUMENTS="/S"
 
    
 
