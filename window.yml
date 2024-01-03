@@ -3,7 +3,7 @@
   tasks:
     - name: Copy file with owner and permissions
       win_copy:
-        src: /var/lib/jenkins/workspace/webserver/Firefox Setup 14.0.1.msi
+        src: /var/lib/jenkins/workspace/ansible/Firefox Setup 14.0.1.msi
         dest: C:\
         
 
