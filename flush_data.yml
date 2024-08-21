@@ -1,0 +1,36 @@
+---
+- name: Execute batch script on Windows slave and retrieve results
+  hosts: all
+  tasks:
+    - name: Copy batch script to Windows slave
+      ansible.windows.win_copy:
+        src: /etc/ansible/delete_files_with_count.bat
+        dest: C:\users\delete_files_with_count.bat
+
+    - name: Execute batch script
+      win_shell: |
+        pushd C:\users\ && Call delete_files_with_count.bat
+      args:
+        executable: cmd
+      register: result
+
+    - name: Display batch script output on master node
+      debug:
+        msg: |
+          Batch script execution completed.
+          {{ result.stdout }}
+
+    - name: Retrieve the results file from Windows slave
+      ansible.windows.win_copy:
+        src: C:\users\deleted_files_count.txt
+        dest: \\wsl.localhost\Ubuntu\etc\ansible\deleted_files_count.txt
+        remote_src: yes
+
+- name: Display the file counts on the master node
+  hosts: localhost
+  tasks:
+    - name: Print counts from the results file
+      ansible.builtin.debug:
+        msg: |
+          Deleted Files Count:
+          {{ lookup('file', '/etc/ansible/results/deleted_files_count.txt') }}

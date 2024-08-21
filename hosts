@@ -1,0 +1,7 @@
+[win]
+192.168.10.143
+[win:vars]
+ansible_user=SATVAT-P3
+ansible_password=Satvat@123
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
