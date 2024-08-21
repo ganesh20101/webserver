@@ -1,0 +1,9 @@
+---
+- name: "Shutdown Win10 Orange Cart"
+  hosts: all
+  tasks:
+    - name: Shutdown
+      ansible.builtin.raw: shutdown /r /t 1
+      poll: 0
+      register: shutdown_output
+      changed_when: shutdown_output.rc != 0

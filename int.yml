@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Warn logged in users of impending upgrade
+      community.windows.win_msg:
+        display_seconds: 60
+       
+        msg: work over ahh!!!

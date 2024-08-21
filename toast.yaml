@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Warn logged in users of impending upgrade (note use of async to stop the module from waiting until notification expires).
+      community.windows.win_toast:
+        display_seconds: 60
+        title: what about report?
+        msg:  Message From Ganesh.S (Devops Profession & OMR R&D Process)
+      
