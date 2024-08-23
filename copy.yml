@@ -1,0 +1,15 @@
+---
+- name: Copy file from Windows to WSL (Ubuntu)
+  hosts: 192.168.10.143
+  tasks:
+
+    - name: Compress the folder on Windows
+      win_shell: |
+        Compress-Archive -Path "C:\Users\HP\Music\102" -DestinationPath "C:\Users\HP\Music\102.zip"
+    - name: Copy file from Windows to WSL using fetch
+      fetch:
+        src: C:\Users\HP\Music\102.zip  # Path on the Windows machine
+        dest: /tmp/102.zip  # Temporary path on the WSL (controller)
+        flat: yes
+        recurse: yes  # Prevent Ansible from creating a directory structure
+        force: yes
