@@ -1,0 +1,38 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+   - name: Copy JPG image to remote Windows machine
+     win_copy:
+       src: /etc/ansible/2F.jpg
+       dest: C:\\Users\\HP\\Music\\2F.jpg
+
+   - name: Copy batch file to remote Windows machine
+     win_copy:
+       src: /etc/ansible/OpenImage.bat  # Path on the WSL-based Ubuntu machine
+       dest: C:\\Users\\HP\\Music\\OpenImage.bat  # Path on the Windows machine
+
+   - name: Create a scheduled task to run the batch file
+     win_scheduled_task:
+       name: "Open Image with Paint Maximized"
+       description: "Opens an image using Paint in a maximized window"
+       actions:
+         - path: "C:\\Users\\HP\\Music\\OpenImage.bat"
+       triggers:
+         - type: logon
+       user: "{{ ansible_user }}"
+       run_level: highest
+       state: present
+
+   - name: Run the scheduled task immediately
+     win_shell: schtasks /run /tn "Open Image with Paint Maximized"
+
+   - name: Wait for the scheduled task to complete
+     wait_for:
+       timeout: 30  # Adjust as needed
+     ignore_errors: yes
+
+   - name: Remove the scheduled task after execution
+     win_scheduled_task:
+       name: "Open Image with Paint Maximized"
+       state: absent
