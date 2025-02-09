@@ -2,7 +2,7 @@ trigger:
   - main  # Runs the pipeline when code is pushed to the main branch
 
 pool:
-  vmImage: 'ubuntu-latest'  # Uses Microsoft-hosted Ubuntu agent
+  vmImage: 'SelfHosted'  # Uses Microsoft-hosted Ubuntu agent
 
 steps:
   - task: Bash@3
