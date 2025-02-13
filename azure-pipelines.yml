@@ -1,21 +1,15 @@
 pool:
-  name: 'ganesh'  # Use your agent pool name here
+  name: 'ganesh'  # Your self-hosted agent pool
 
 steps:
-  - task: Checkout@2
-    displayName: 'Checkout the Main branch'
-    inputs:
-      repository: self
-      ref: 'refs/heads/main'  # Ensures we pull from the main branch
-
   - task: Bash@3
-    displayName: 'Clone Git Repo and Verify'
+    displayName: 'Clone Git Repository'
     inputs:
       targetType: 'inline'
       script: |
         echo "Cloning repository..."
-        git clone https://github.com/ganesh20101/webserver.git  # Replace with your repository URL
-        cd webserver  # Replace with the actual folder name of your repo
+        git clone   # Replace with your repository URL
+        cd <your-repo-name>  # Replace with the name of the directory created by cloning
         echo "Verifying repository files..."
         ls -l  # List the files in the repo to verify it's cloned
         git log -1  # Show the latest commit to verify it's from the main branch
