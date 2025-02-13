@@ -1,13 +1,10 @@
-trigger:
-  - main  # Runs the pipeline when code is pushed to the main branch
-
 pool:
-  vmImage: 'ubuntu-latest'  # Uses Microsoft-hosted Ubuntu agent
+  name: 'ganesh'  # Replace with your agent pool name
 
 steps:
   - task: Bash@3
-    displayName: "Pull Docker Image"
+    displayName: 'Run on MyUbuntuAgent'
     inputs:
       targetType: 'inline'
       script: |
-        docker pull nginx:latest  # Replace with your desired image
+        echo "This is running on MyUbuntuAgent!"
