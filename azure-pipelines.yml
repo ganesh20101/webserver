@@ -1,10 +1,21 @@
 pool:
-  name: 'ganesh'  # Replace with your agent pool name
+  name: 'ganesh'  # Use your agent pool name here
 
 steps:
+  - task: Checkout@2
+    displayName: 'Checkout the Main branch'
+    inputs:
+      repository: self
+      ref: 'refs/heads/main'  # Ensures we pull from the main branch
+
   - task: Bash@3
-    displayName: 'Run on MyUbuntuAgent'
+    displayName: 'Clone Git Repo and Verify'
     inputs:
       targetType: 'inline'
       script: |
-        echo "This is running on MyUbuntuAgent!"
+        echo "Cloning repository..."
+        git clone https://<your-repo-url>.git  # Replace with your repository URL
+        cd <your-repo-name>  # Replace with the actual folder name of your repo
+        echo "Verifying repository files..."
+        ls -l  # List the files in the repo to verify it's cloned
+        git log -1  # Show the latest commit to verify it's from the main branch
