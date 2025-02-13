@@ -14,8 +14,8 @@ steps:
       targetType: 'inline'
       script: |
         echo "Cloning repository..."
-        git clone https://<your-repo-url>.git  # Replace with your repository URL
-        cd <your-repo-name>  # Replace with the actual folder name of your repo
+        git clone https://github.com/ganesh20101/webserver.git  # Replace with your repository URL
+        cd webserver  # Replace with the actual folder name of your repo
         echo "Verifying repository files..."
         ls -l  # List the files in the repo to verify it's cloned
         git log -1  # Show the latest commit to verify it's from the main branch
